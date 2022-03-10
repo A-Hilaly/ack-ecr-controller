@@ -11,7 +11,10 @@ require (
 	k8s.io/apimachinery v0.23.0
 	k8s.io/client-go v0.23.0
 	sigs.k8s.io/controller-runtime v0.11.0
+	github.com/aws-controllers-k8s/ackutil v0.1.0
 )
+
+replace github.com/aws-controllers-k8s/ackutil => ../ackutil
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect

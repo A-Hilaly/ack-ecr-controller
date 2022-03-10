@@ -16,6 +16,7 @@ package repository
 import (
 	"context"
 
+	"github.com/aws-controllers-k8s/ackutil"
 	"github.com/aws/aws-sdk-go/aws"
 	svcsdk "github.com/aws/aws-sdk-go/service/ecr"
 
@@ -52,8 +53,11 @@ func (rm *resourceManager) customUpdateRepository(
 	exit := rlog.Trace("rm.customUpdateRepository")
 	defer exit(err)
 
+	ackutil.DebugAll("++++PRE UPDATE ++++", desired.ko.Spec, latest.ko.Spec)
+
 	var updated *resource
 	updated = desired
+
 	if delta.DifferentAt("Spec.ImageScanningConfiguration") {
 		updated, err = rm.updateImageScanningConfiguration(ctx, updated)
 		if err != nil {
@@ -163,7 +167,7 @@ func (rm *resourceManager) updateLifecyclePolicy(
 
 	input := &svcsdk.PutLifecyclePolicyInput{
 		RepositoryName:      aws.String(*dspec.Name),
-		RegistryId:          aws.String(*dspec.RegistryID),
+		RegistryId:          aws.String("771174509839"),
 		LifecyclePolicyText: aws.String(*dspec.LifecyclePolicy),
 	}
 
